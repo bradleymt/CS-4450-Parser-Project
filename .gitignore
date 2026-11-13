@@ -14,4 +14,16 @@ cmake-build-*/
 
 # OS files
 .DS_Store
-Tumbs.db
+Thumbs.db
+
+# ANTLR files
+.antlr/
+*.interp
+*.tokens
+grammar/*.java
+grammar/*.class
+
+# Parse tree output files
+tree.txt
+*_tree.txt
+output/
