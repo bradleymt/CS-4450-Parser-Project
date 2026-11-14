@@ -1,4 +1,5 @@
-This is a very good python parser.
+This is a very good python parser. - Bradley
+I would even say it's the best one ever made. - Michael
 
 ## Requirements
 - Java to run antlr

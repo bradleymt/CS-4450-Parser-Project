@@ -1,6 +1,6 @@
 //Division of roles:
-//Arithmetic - Cole
-//Assignment - Bergie
+//Arithmetic - Michael
+//Assignment - Cole
 //Data Types and Parser Integration - Bradley
 
 grammar PseudoPython;
@@ -45,13 +45,20 @@ expression
     | expression '-' term
     ;
 
+// Switched from factor to unary so leading '-'s parse. -Michael
 term
-    : factor
-    | term '*' factor
-    | term '/' factor
-    | term '%' factor
+    : unary
+    | term '*' unary
+    | term '/' unary
+    | term '%' unary
     ;
 
+// Unary sign, so -5, -x, and 5 - -2 work. -Michael
+unary
+    : '-' unary
+    | '+' unary
+    | factor
+    ;
 
 //Individual values
 factor
