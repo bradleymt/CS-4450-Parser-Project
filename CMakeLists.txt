@@ -61,6 +61,6 @@ add_custom_command(
     DEPENDS ${GRAMMAR_FILE}
 )
 
-add_executable(python_parser src/main.cpp src/parser.cpp ${GENERATED_FILES})
+add_executable(python_parser src/main.cpp src/parser.cpp src/IndentLexer.cpp ${GENERATED_FILES})
 target_include_directories(python_parser PRIVATE ${CMAKE_SOURCE_DIR}/src ${GENERATED_DIR})
 target_link_libraries(python_parser PRIVATE antlr4_static)

@@ -5,15 +5,41 @@
 
 grammar PseudoPython;
 
+//INDENT and DEDENT are made by src/IndentLexer.cpp, not by a lexer rule
+//IndentLexer also drops blank/coment only lines and adds a NEWLINE at the end of the file if missing
+tokens { INDENT, DEDENT }
+
 //Main program
-//Allows blank lines anywhere and the last line doesnt need a newline
 program
-    : NEWLINE* (statement (NEWLINE+ statement)*)? NEWLINE* EOF
+    : statement* EOF
     ;
 
+
 //Statements
+//simple statements end with a newline, compound ones end with their block
 statement
+    : simpleStatement NEWLINE
+    | compoundStatement
+    ;
+
+simpleStatement
     : assignment
+    ;
+
+compoundStatement
+    : testBlock
+    ;
+
+//TEMPORARY, only for testing indentation until ifStatement added, don't forget to remove and replace Cole
+//ex:  name:
+//         x = 1
+testBlock
+    : NAME ':' block
+    ;
+
+//Indented block of statements, used by if/elif/else (and loops later)
+block
+    : NEWLINE INDENT statement+ DEDENT
     ;
 
 //Assignment
@@ -100,6 +126,9 @@ RPAREN   : ')' ;
 LBRACKET : '[' ;
 RBRACKET : ']' ;
 COMMA    : ',' ;
+
+//Blocks
+COLON    : ':' ;
 
 
 //Data types
