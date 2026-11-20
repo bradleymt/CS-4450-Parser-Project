@@ -6,6 +6,7 @@
 #include "antlr4-runtime.h"
 #include "PseudoPythonLexer.h"
 #include "PseudoPythonParser.h"
+#include "IndentLexer.h"
 
 //returns num of syntax errors
 int parseFile(std::string fileName);

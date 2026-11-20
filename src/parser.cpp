@@ -17,13 +17,13 @@ int parseFile(string fileName)
 
 
     ANTLRInputStream input(file);
-    PseudoPythonLexer lexer(&input);
+    IndentLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     PseudoPythonParser parser(&tokens);
 
     tree::ParseTree* tree = parser.program();
 
-    int errors = lexer.getNumberOfSyntaxErrors() + parser.getNumberOfSyntaxErrors();
+    int errors = lexer.getNumberOfSyntaxErrors() + lexer.getIndentErrors() + parser.getNumberOfSyntaxErrors();
 
     cout << "========== Parse Tree ==========" << endl;
     printTree(tree, &parser, 0);
@@ -68,7 +68,15 @@ void printTree(tree::ParseTree* node, PseudoPythonParser* parser, int depth)
         {
             typeName = string(parser->getVocabulary().getSymbolicName(type));
         }
-        cout << typeName << ": " << cleanText(leaf->getText()) << endl;
+        //INDENT/DEDENT have no real text so just show name
+        if (type == PseudoPythonParser::INDENT || type == PseudoPythonParser::DEDENT)
+        {
+            cout << typeName << endl;
+        }
+        else
+        {
+            cout << typeName << ": " << cleanText(leaf->getText()) << endl;
+        }
     }
     else
     {
