@@ -58,9 +58,45 @@ assignmentOperator
 
 
 //Values can be assigned
+// Changed from expression to condition since condition goes down to expression, so plain math still works
+// but now also lets flag = a < b and not c parse without if statement. -Michael
 value
-    : expression
+    : condition
     | list
+    ;
+
+// Conditions
+// Lowest to highest precedence: or, and, not, and comparison.
+condition
+    : orExpression
+    ;
+
+orExpression
+    : andExpression (OR andExpression)*
+    ;
+
+andExpression
+    : notExpression (AND notExpression)*
+    ;
+
+notExpression
+    : NOT notExpression
+    | comparison
+    ;
+
+// Chained like python (a < b < c), or a parenthesized condition like (not flag).
+comparison
+    : expression (comparisonOperator expression)*
+    | '(' condition ')'
+    ;
+
+comparisonOperator
+    : LT
+    | LE
+    | GT
+    | GE
+    | EQ
+    | NE
     ;
 
 
@@ -121,6 +157,14 @@ TIMES  : '*' ;
 DIVIDE : '/' ;
 MODULO : '%' ;
 
+// Comparison operators.
+LT : '<' ;
+LE : '<=' ;
+GT : '>' ;
+GE : '>=' ;
+EQ : '==' ;
+NE : '!=' ;
+
 LPAREN   : '(' ;
 RPAREN   : ')' ;
 LBRACKET : '[' ;
@@ -137,6 +181,11 @@ BOOLEAN
     : 'True'
     | 'False'
     ;
+
+// Keywords for conditions.
+AND : 'and' ;
+OR : 'or' ;
+NOT : 'not' ;
 
 FLOAT
     : [0-9]+ '.' [0-9]*
