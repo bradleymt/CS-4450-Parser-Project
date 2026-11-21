@@ -37,7 +37,9 @@ At the end it says if there were syntax error.
 - `src/parser.cpp`, `src/parser.h` - runs lexer and parser and prints tree
 - `src/IndentLexer.cpp`, `src/IndentLexer.h` - wraps the antlr lexer to make INDENT/DEDENT tokens from indentation and skips blank lines
 - `tests/project_deliverable_1.py` - test file for delverable 1
+- `tests/project_deliverable_2.py` - test file for delverable 2 (if/elif/else)
+- `tests/conditions_test.py` - comparisons, and/or/not, precedence
 - `tests/lists_test.py` - self explanatory
 - `tests/datatypes_test.py` - self explanatory
-- `tests/indentation_test.py` - nested blocks, multi level dedents, tabs, blank/comment lines in blocks
+- `tests/indentation_test.py` - nested if/elif/else blocks, multi level dedents, tabs, blank/comment lines in blocks
 - `tests/bad_indentation_test.py` - every section should give an indentation error

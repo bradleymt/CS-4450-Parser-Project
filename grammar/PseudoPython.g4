@@ -27,14 +27,18 @@ simpleStatement
     ;
 
 compoundStatement
-    : testBlock
+    : ifStatement
     ;
 
-//TEMPORARY, only for testing indentation until ifStatement added, don't forget to remove and replace Cole
-//ex:  name:
-//         x = 1
-testBlock
-    : NAME ':' block
+//If statements, with any number of elifs and an optional else
+//ex:  if x > 1:
+//         y = 1
+//     elif x < 0:
+//         y = 2
+//     else:
+//         y = 3
+ifStatement
+    : IF condition COLON block (ELIF condition COLON block)* (ELSE COLON block)?
     ;
 
 //Indented block of statements, used by if/elif/else (and loops later)
@@ -181,6 +185,11 @@ BOOLEAN
     : 'True'
     | 'False'
     ;
+
+// Keywords for if statements, above NAME so they aren't read as names.
+IF   : 'if' ;
+ELIF : 'elif' ;
+ELSE : 'else' ;
 
 // Keywords for conditions.
 AND : 'and' ;
